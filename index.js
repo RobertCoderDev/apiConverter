@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors';
 import job from "./tools/deleteUploads.js"
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 //crear servidor con node
 
@@ -18,6 +20,14 @@ app.use(cors());
 
 app.use(express.json());  // recibir datos con content-type app/json
 app.use(express.urlencoded({ extended: true})); // form-urlencoded app/json
+
+
+// Servir archivos estáticos desde la carpeta 'output'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('./src/output', express.static(path.join(__dirname, 'output')));
 
 
 //routes

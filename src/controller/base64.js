@@ -22,7 +22,8 @@ const base64ToFile = async (req, res) => {
 
         scheduleFileDeletion(outputPath);
 
-        res.status(200).send('Conversión de imagen completada.');
+        const fileUrl = `${req.protocol}://${req.get('host')}/output/${outputFileName}`;
+        res.status(200).json({ message: 'Conversión de imagen completada.', fileUrl: fileUrl });
 
 
     } catch (error) {
